@@ -83,21 +83,6 @@
 
 ---
 
-## **Suggested Repository Structure**
-
-- `data/`
-  - Raw and/or processed datasets (or instructions if private/too large)
-- `notebooks/`
-  - EDA and baseline experiments
-- `src/`
-  - Preprocessing, feature extraction, and training/evaluation code
-- `results/`
-  - Figures, tables, metrics
-- `docs/`
-  - Setup photos, diagrams, notes
-
----
-
 ## **Notes / Limitations**
 
 - RSSI-based localization is sensitive to:
