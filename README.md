@@ -1,77 +1,105 @@
-RFID Grid Localization using Average RSSI + Machine Learning (Capstone Project, 2022–2024)
+# RFID Grid Localization Using Average RSSI + Machine Learning (Capstone, 2022–2024)
 
-This repository contains materials from an undergraduate capstone project focused on RFID tag localization on a predefined 2D grid using machine learning and per-antenna average RSSI features. I supported the project as the TA / project advisor from 2022–2024, helping guide experimental design, data collection, and ML evaluation across multiple student teams.
+- **Project type:** Undergraduate capstone (2-year scope)
+- **My role:** TA / Project Advisor (2022–2024)
+- **Core idea:** Use **per-antenna average RSSI** features to predict an RFID tag’s location on a **predefined 2D grid** (tag at ground level)
+- **Best-performing model:** **k-Nearest Neighbors (KNN)**
 
-Overview
+---
 
-RFID-based localization is challenging due to environmental noise, multipath effects, and sensitivity to tag placement and orientation. This project explored whether a practical, repeatable setup could localize a tag’s position on a grid using RSSI measurements collected from multiple antennas.
+## **Project Summary**
 
-The workflow is:
+- Built a controlled RFID localization testbed and evaluated whether **machine learning is a viable tool** for localizing tags on a grid.
+- Collected signal data from **four antennas** and aggregated readings into **average RSSI per antenna**.
+- Expanded data collection to study sensitivity factors (e.g., **tag orientation** and **distance to antennas**).
+- Benchmarked multiple models; **KNN** performed best under our feature representation.
 
-Build a controlled testbed with known grid coordinates.
+---
 
-Collect RFID reads at each grid point across multiple trials.
+## **Testbed Setup (Fall 2022 Pilot)**
 
-Aggregate readings by computing average RSSI per antenna.
+- **Layout**
+  - 4 RFID antennas positioned around a **table-top grid (mat)**
+  - RFID tags placed at **ground level** on predefined grid points
+- **Reference / Mapping**
+  - Grid referenced using an **ArUco marker map** to maintain consistent locations across trials
+- **Data collection**
+  - Multiple reads per grid point, per antenna
+  - Readings aggregated into summary features (average RSSI)
 
-Train and evaluate ML models that map the RSSI feature vector to a predicted grid location.
+---
 
-Expand data collection to study sensitivity factors such as tag orientation and antenna distance.
+## **Project Timeline**
 
-Testbed Setup (Fall 2022 Pilot)
+### **Year 1 (Fall 2022): Feasibility / Viability**
+- **Goal**
+  - Determine whether ML can localize an RFID tag on a predefined grid using RSSI measurements.
+- **Outcome**
+  - Demonstrated localization at multiple grid points on the mat, justifying expansion.
 
-Physical layout: A table-top grid (mat) with four RFID antennas placed around the area.
+### **Year 2 (2023–2024): Data Collection + Sensitivity Factors**
+- **Focus**
+  - Improve dataset robustness and understand performance drivers.
+- **Variables studied**
+  - Tag orientation (**angle / rotation**)
+  - Tag distance from each antenna
+  - Repeatability across trials and collection protocols
 
-Reference system: The test region was referenced using an ArUco marker map to maintain consistent and repeatable grid locations across trials.
+---
 
-Tag placement: Tags were placed at ground level on predefined grid points.
+## **Feature Engineering**
 
-Measurements: For each grid point, multiple RFID readings were collected from each antenna.
+- **Input features (per sample)**
+  - `avg_RSSI_antenna_1`
+  - `avg_RSSI_antenna_2`
+  - `avg_RSSI_antenna_3`
+  - `avg_RSSI_antenna_4`
+- **How features are formed**
+  - Collect multiple reads at a grid point
+  - Compute **average RSSI per antenna**
+  - Use the resulting 4D vector as the ML input
 
-Project Phases
-Year 1 (Fall 2022): Feasibility / Viability of ML for Localization
+---
 
-The first year focused on a core feasibility question:
+## **Modeling Summary**
 
-Is machine learning a viable tool to localize an RFID tag on a predefined grid using RSSI measurements from multiple antennas?
+- **Problem framing**
+  - Predict the RFID tag’s **grid location** on a predefined 2D mat using RSSI-based features.
+- **Best model**
+  - **k-Nearest Neighbors (KNN)** performed best in our benchmarks with per-antenna average RSSI features.
 
-During this phase, the team established the testbed, developed a baseline data collection workflow, and evaluated models using per-antenna average RSSI as the primary feature representation. The pilot results showed that the system could localize tags at multiple grid points on the mat, motivating expansion to a larger and more systematic dataset.
+---
 
-Year 2 (2023–2024): Data Collection and Sensitivity Factors
+## **My Role (TA / Project Advisor, 2022–2024)**
 
-The second year focused more heavily on data collection quality and understanding what conditions drive performance changes. Key factors studied included:
+- Guided teams on:
+  - Experimental design and repeatable testing procedures
+  - Data collection consistency and troubleshooting
+  - Preprocessing and feature engineering (average RSSI per antenna)
+  - Model evaluation and comparison practices
+  - Documentation and project structure for reproducible work
 
-Tag orientation / angle (rotation)
+---
 
-Distance between the tag and each antenna
+## **Suggested Repository Structure**
 
-Repeatability across trials and collection protocols to reduce noise
+- `data/`
+  - Raw and/or processed datasets (or instructions if private/too large)
+- `notebooks/`
+  - EDA and baseline experiments
+- `src/`
+  - Preprocessing, feature extraction, and training/evaluation code
+- `results/`
+  - Figures, tables, metrics
+- `docs/`
+  - Setup photos, diagrams, notes
 
-The goal of this phase was to build a more robust dataset and to characterize when RSSI-based localization performs well versus when it degrades.
+---
 
-Feature Engineering
+## **Notes / Limitations**
 
-Primary feature representation:
-For each grid point, we computed the average RSSI value from each antenna (after aggregating multiple reads). This produces a compact feature vector:
-
-[avg_RSSI_antenna_1, avg_RSSI_antenna_2, avg_RSSI_antenna_3, avg_RSSI_antenna_4]
-
-This approach reduces variance from individual reads and enables straightforward model benchmarking.
-
-Modeling Summary
-
-We benchmarked multiple ML approaches for predicting tag location on the grid. In our evaluation, k-Nearest Neighbors (KNN) consistently performed best for this problem formulation and feature representation (per-antenna average RSSI), and it became the primary baseline model.
-
-My Role (TA / Project Advisor)
-
-From 2022–2024, I supported the capstone teams by:
-
-Guiding experimental design and defining repeatable data collection procedures
-
-Supporting hardware/software troubleshooting during testbed setup
-
-Advising on data preprocessing and feature engineering (average RSSI per antenna)
-
-Helping teams structure model evaluation and compare approaches consistently
-
-Providing feedback on documentation and presentation of results
+- RSSI-based localization is sensitive to:
+  - Environmental multipath / interference
+  - Tag orientation and placement
+  - Antenna geometry and distance
+- Results reflect a controlled grid testbed and are intended for capstone/educational demonstration.
