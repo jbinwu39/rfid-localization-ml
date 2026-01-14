@@ -63,10 +63,12 @@
 
 ## **Modeling Summary**
 
+## **Modeling Summary**
+
 - **Problem framing**
-  - Predict the RFID tag’s **grid location** on a predefined 2D mat using RSSI-based features.
+  - Predict the RFID tag’s **discrete grid coordinate (x, y)** on a predefined 2D mat (e.g., `(5, 12)`) using RSSI-based features.
 - **Best model**
-  - **k-Nearest Neighbors (KNN)** performed best in our benchmarks with per-antenna average RSSI features.
+  - **k-Nearest Neighbors (KNN)** performed best in our benchmarks using **per-antenna average RSSI** as input features.
 
 ---
 
